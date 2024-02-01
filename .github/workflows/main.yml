@@ -1,0 +1,20 @@
+name: AWS Hackathon
+on: [deployment]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Configure AWS Credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - name: Setup Python
+        uses: actions/setup-python@v5.0.0
+        with:
+          # Version range or exact version of a Python version to use, using SemVer's version range syntax.
+          python-version: "3.12.1"
+          # Used to specify a package manager for caching in the default directory. Supported values: pip, pipenv, poetry.
+          cache: pipenv
+
