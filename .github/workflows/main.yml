@@ -17,4 +17,5 @@ jobs:
           python-version: "3.12.1"
           # Used to specify a package manager for caching in the default directory. Supported values: pip, pipenv, poetry.
           cache: pipenv
-
+      - name: "Install python dependencies"
+        run: pipenv install --dev
