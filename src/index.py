@@ -6,23 +6,21 @@ import os
 import re
 import shutil
 
-region = os.environ.get("AWS_DEFAULT_REGION", 'us-west-2')
+region = os.environ.get("AWS_DEFAULT_REGION", 'us-east-1')
 bedrock_runtime = boto3.client(service_name="bedrock-runtime", region_name=region)
 model = "anthropic.claude-v2:1"
 
 all_categories_file = './src/data/all_categories.txt'
 xml_out_format = './src/data/xml_out_format.txt'
 prompt_file = './src/prompts/category_generate_prompt.txt'
-# output_csv_file = "./output/output_res.csv"
 xml_prompt_file = './src/prompts/xml_generate_prompt.txt'
-# xml_out_file = './output/xml_output.xml'
 
 st.title("Automating Product Categorization(APC)")
 
 def model_response(prompt, to_replace):
     for key in to_replace:
         prompt = prompt.replace(key, to_replace[key])
-    
+
     body = json.dumps({
         "prompt": "\n\nHuman: " + prompt + "\n\nAssistant:",
         "max_tokens_to_sample": 1000,
@@ -108,7 +106,7 @@ def generateXml(xml_data):
 def renameFile(existingFile, renameFile):
     if os.path.exists(renameFile):
         os.remove(renameFile)
-        
+
     if os.path.exists(existingFile):
         os.rename(existingFile, renameFile)
 
